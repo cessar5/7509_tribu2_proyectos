@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/usuarios")
+@RequestMapping(value = "usuarios")
 
 public class UsuarioController {
     @Autowired

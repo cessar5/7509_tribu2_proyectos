@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/tareas")
+@RequestMapping(value = "tareas")
 public class TareaController {
     @Autowired
     TareaService tareaService;

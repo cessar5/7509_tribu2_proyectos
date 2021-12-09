@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(value = "api/proyectos")
+@RequestMapping(value = "proyectos")
 public class ProyectoController {
 
     @Autowired
