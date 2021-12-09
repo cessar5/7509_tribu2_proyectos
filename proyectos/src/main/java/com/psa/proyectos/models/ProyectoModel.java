@@ -11,7 +11,11 @@ public class ProyectoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private Long idProyecto;
+
+    @ManyToOne
+    @JoinColumn(name="idUsuario")
+    private UsuarioModel idUsuario;
 
     private String nombre;
     private String descripcion;
@@ -22,12 +26,12 @@ public class ProyectoModel {
     private Date fechaFinalizacionEstimada;
 
     private Date fechaEntregaComunicadaAUsuario;
-    public Long getId() {
-        return id;
+    public Long getIdProyecto() {
+        return idProyecto;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdProyecto(Long idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
     public String getNombre() {
@@ -86,5 +90,12 @@ public class ProyectoModel {
         this.fechaEntregaComunicadaAUsuario = fechaEntregaComunicadaAUsuario;
     }
 
+    public UsuarioModel getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(UsuarioModel idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
 }
