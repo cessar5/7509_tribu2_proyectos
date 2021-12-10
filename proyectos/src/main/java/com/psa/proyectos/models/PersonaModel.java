@@ -3,26 +3,25 @@ package com.psa.proyectos.models;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "usuarios" )
-public class UsuarioModel {
+@Table (name = "personas" )
+public class PersonaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long idUsuario;
+    private Long idLegajo;
 
     private String nombre;
 
     private String apellido;
     private String email;
-    private String rol;
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getIdLegajo() {
+        return idLegajo;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdLegajo(Long idLegajo) {
+        this.idLegajo = idLegajo;
     }
 
     public String getNombre() {
@@ -49,11 +48,4 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 }

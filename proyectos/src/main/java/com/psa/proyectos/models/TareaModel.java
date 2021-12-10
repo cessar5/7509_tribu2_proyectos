@@ -13,12 +13,12 @@ public class TareaModel {
     private Long idTarea;
 
     @ManyToOne
-    @JoinColumn(name="idProyecto")
+    @JoinColumn(name="idProyecto", nullable = false)
     private ProyectoModel idProyecto;
 
     @ManyToOne
-    @JoinColumn(name="idUsuario")
-    private UsuarioModel idUsuario;
+    @JoinColumn(name="idLegajo")
+    private PersonaModel idLegajo;
 
     private String nombre;
     private String descripcion;
@@ -91,11 +91,11 @@ public class TareaModel {
         this.idProyecto = idProyecto;
     }
 
-    public UsuarioModel getIdUsuario() {
-        return idUsuario;
+    public PersonaModel getIdLegajo() {
+        return idLegajo;
     }
 
-    public void setIdUsuario(UsuarioModel idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdLegajo(PersonaModel idLegajo) {
+        this.idLegajo = idLegajo;
     }
 }

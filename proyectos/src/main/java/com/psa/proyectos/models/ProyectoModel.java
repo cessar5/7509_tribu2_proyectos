@@ -14,8 +14,8 @@ public class ProyectoModel {
     private Long idProyecto;
 
     @ManyToOne
-    @JoinColumn(name="idUsuario")
-    private UsuarioModel idUsuario;
+    @JoinColumn(name="idLegajo")
+    private PersonaModel idLegajo;
 
     private String nombre;
     private String descripcion;
@@ -25,7 +25,7 @@ public class ProyectoModel {
     private Date fechaInicioEstimada;
     private Date fechaFinalizacionEstimada;
 
-    private Date fechaEntregaComunicadaAUsuario;
+    private Date fechaEntregaComunicadaACliente;
     public Long getIdProyecto() {
         return idProyecto;
     }
@@ -82,20 +82,20 @@ public class ProyectoModel {
         this.fechaFinalizacionEstimada = fechaFinalizacionEstimada;
     }
 
-    public Date getFechaEntregaComunicadaAUsuario() {
-        return fechaEntregaComunicadaAUsuario;
+    public Date getFechaEntregaComunicadaACliente() {
+        return fechaEntregaComunicadaACliente;
     }
 
-    public void setFechaEntregaComunicadaAUsuario(Date fechaEntregaComunicadaAUsuario) {
-        this.fechaEntregaComunicadaAUsuario = fechaEntregaComunicadaAUsuario;
+    public void setFechaEntregaComunicadaACliente(Date fechaEntregaComunicadaACliente) {
+        this.fechaEntregaComunicadaACliente = fechaEntregaComunicadaACliente;
     }
 
-    public UsuarioModel getIdUsuario() {
-        return idUsuario;
+    public PersonaModel getIdLegajo() {
+        return idLegajo;
     }
 
-    public void setIdUsuario(UsuarioModel idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdLegajo(PersonaModel idLegajo) {
+        this.idLegajo = idLegajo;
     }
 
 }
