@@ -18,6 +18,7 @@ public class TareaController {
     public ArrayList<TareaModel> obtenerTareas() {
         return tareaService.obtenerTareas();
     }
+
     @PostMapping
     public TareaModel guardarTarea(@RequestBody TareaModel tarea){
         return this.tareaService.guardarTarea(tarea);
@@ -39,7 +40,7 @@ public class TareaController {
         }
     }
 
-    @GetMapping("/query")
+    @GetMapping(path = "/query")
     public ArrayList<TareaModel> obtenerTareasPorNombre(@RequestParam("nombre") String nombre){
 
         return this.tareaService.obtenerPorNombre(nombre);

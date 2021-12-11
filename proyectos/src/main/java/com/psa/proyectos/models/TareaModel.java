@@ -27,6 +27,8 @@ public class TareaModel {
     private Integer horasEstimadas;
     private Integer horasTrabajadas;
 
+    private Long idTicket;
+
     public Long getIdTarea() {
         return idTarea;
     }
@@ -97,5 +99,13 @@ public class TareaModel {
 
     public void setIdLegajo(PersonaModel idLegajo) {
         this.idLegajo = idLegajo;
+    }
+
+    public Long getIdTicket() {
+        return idTicket;
+    }
+
+    public void setIdTicket(Long idTicket) {
+        this.idTicket = idTicket;
     }
 }
