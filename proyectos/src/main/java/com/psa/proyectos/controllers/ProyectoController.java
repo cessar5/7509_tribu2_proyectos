@@ -33,6 +33,22 @@ public class ProyectoController {
         return this.proyectoService.obtenerPorId(id);
     }
 
+    @PutMapping(path ="/")
+    public ProyectoModel actualizarProyecto(@RequestBody ProyectoModel proyecto){
+        return this.proyectoService.actualizarProyecto(proyecto);
+    }
+
+    @PutMapping(path ="/{id}")
+    public String actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
+        boolean ok = this.proyectoService.actualizarProyectoPorId(proyecto,id);
+        if (ok) {
+            return "Se actualizo el proyecto con id: "+id;
+        }else{
+            return "No se pudo actualizo el proyecto con id: "+id;
+        }
+
+    }
+
     @DeleteMapping(path = "/{id}")
     public String eliminarPorID(@PathVariable("id") Long id)
     {

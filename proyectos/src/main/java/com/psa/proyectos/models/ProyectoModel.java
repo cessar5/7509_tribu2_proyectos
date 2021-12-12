@@ -3,6 +3,7 @@ package com.psa.proyectos.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -26,29 +27,24 @@ public class ProyectoModel {
     private String descripcion;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date fechaInicioReal;
+    private LocalDate fechaInicioReal;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date  fechaFinalizacionReal;
+    private LocalDate  fechaFinalizacionReal;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date  fechaInicioEstimada;
+    private LocalDate  fechaInicioEstimada;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date  fechaFinalizacionEstimada;
+    private LocalDate  fechaFinalizacionEstimada;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date  fechaEntregaComunicadaACliente;
+    private LocalDate  fechaEntregaComunicadaACliente;
 
     public Long getIdProyecto() {
         return idProyecto;
@@ -74,43 +70,43 @@ public class ProyectoModel {
         this.descripcion = descripcion;
     }
 
-    public Date  getFechaInicioReal() {
+    public LocalDate getFechaInicioReal() {
         return fechaInicioReal;
     }
 
-    public void setFechaInicioReal(Date fechaInicioReal) {
+    public void setFechaInicioReal(LocalDate fechaInicioReal) {
         this.fechaInicioReal = fechaInicioReal;
     }
 
-    public Date  getFechaFinalizacionReal() {
+    public LocalDate getFechaFinalizacionReal() {
         return fechaFinalizacionReal;
     }
 
-    public void setFechaFinalizacionReal(Date  fechaFinalizacionReal) {
+    public void setFechaFinalizacionReal(LocalDate  fechaFinalizacionReal) {
         this.fechaFinalizacionReal = fechaFinalizacionReal;
     }
 
-    public Date getFechaInicioEstimada() {
+    public LocalDate getFechaInicioEstimada() {
         return fechaInicioEstimada;
     }
 
-    public void setFechaInicioEstimada(Date fechaInicioEstimada) {
+    public void setFechaInicioEstimada(LocalDate fechaInicioEstimada) {
         this.fechaInicioEstimada = fechaInicioEstimada;
     }
 
-    public Date getFechaFinalizacionEstimada() {
+    public LocalDate getFechaFinalizacionEstimada() {
         return fechaFinalizacionEstimada;
     }
 
-    public void setFechaFinalizacionEstimada(Date fechaFinalizacionEstimada) {
+    public void setFechaFinalizacionEstimada(LocalDate fechaFinalizacionEstimada) {
         this.fechaFinalizacionEstimada = fechaFinalizacionEstimada;
     }
 
-    public Date getFechaEntregaComunicadaACliente() {
+    public LocalDate getFechaEntregaComunicadaACliente() {
         return fechaEntregaComunicadaACliente;
     }
 
-    public void setFechaEntregaComunicadaACliente(Date  fechaEntregaComunicadaACliente) {
+    public void setFechaEntregaComunicadaACliente(LocalDate  fechaEntregaComunicadaACliente) {
         this.fechaEntregaComunicadaACliente = fechaEntregaComunicadaACliente;
     }
 

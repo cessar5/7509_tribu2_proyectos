@@ -3,6 +3,7 @@ package com.psa.proyectos.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -28,14 +29,12 @@ public class TareaModel {
     private String descripcion;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date fechaInicioReal;
+    private LocalDate fechaInicioReal;
 
     @Column
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date fechaFinalizacionReal;
+    private LocalDate fechaFinalizacionReal;
     @Column
     private Integer horasEstimadas;
     @Column
@@ -67,19 +66,19 @@ public class TareaModel {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicioReal() {
+    public LocalDate getFechaInicioReal() {
         return fechaInicioReal;
     }
 
-    public void setFechaInicioReal(Date fechaInicioReal) {
+    public void setFechaInicioReal(LocalDate fechaInicioReal) {
         this.fechaInicioReal = fechaInicioReal;
     }
 
-    public Date getFechaFinalizacionReal() {
+    public LocalDate getFechaFinalizacionReal() {
         return fechaFinalizacionReal;
     }
 
-    public void setFechaFinalizacionReal(Date fechaFinalizacionReal) {
+    public void setFechaFinalizacionReal(LocalDate fechaFinalizacionReal) {
         this.fechaFinalizacionReal = fechaFinalizacionReal;
     }
 

@@ -1,5 +1,6 @@
 package com.psa.proyectos.controllers;
 
+import com.psa.proyectos.models.ProyectoModel;
 import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.services.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,22 @@ public class TareaController {
     @GetMapping (path = "/{id}")
     public Optional<TareaModel> obtenerTareasPorID(@PathVariable("id") Long id){
         return this.tareaService.obtenerPorId(id);
+    }
+
+    @PutMapping(path ="/")
+    public TareaModel actualizarTarea(@RequestBody TareaModel tarea){
+        return this.tareaService.actualizarTarea(tarea);
+    }
+
+    @PutMapping(path ="/{id}")
+    public String actualizarTareaPorId(@RequestBody TareaModel tarea,@PathVariable("id") Long id){
+        boolean ok = this.tareaService.actualizarTareaPorId(tarea,id);
+        if (ok) {
+            return "Se actualizo la tarea con id: "+id;
+        }else{
+            return "No se pudo actualizo la tarea con id: "+id;
+        }
+
     }
 
     @DeleteMapping(path = "/{id}")
