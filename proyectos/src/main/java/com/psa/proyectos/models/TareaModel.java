@@ -1,5 +1,7 @@
 package com.psa.proyectos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,11 +22,23 @@ public class TareaModel {
     @JoinColumn(name="idLegajo")
     private PersonaModel idLegajo;
 
+    @Column
     private String nombre;
+    @Column
     private String descripcion;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date fechaInicioReal;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date fechaFinalizacionReal;
+    @Column
     private Integer horasEstimadas;
+    @Column
     private Integer horasTrabajadas;
 
     private Long idTicket;

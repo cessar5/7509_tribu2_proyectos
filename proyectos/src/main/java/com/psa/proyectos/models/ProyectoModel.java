@@ -1,7 +1,10 @@
 package com.psa.proyectos.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
+
 
 
 @Entity
@@ -17,15 +20,36 @@ public class ProyectoModel {
     @JoinColumn(name="idLegajo")
     private PersonaModel idLegajo;
 
+    @Column
     private String nombre;
+    @Column
     private String descripcion;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date fechaInicioReal;
-    private Date fechaFinalizacionReal;
 
-    private Date fechaInicioEstimada;
-    private Date fechaFinalizacionEstimada;
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date  fechaFinalizacionReal;
 
-    private Date fechaEntregaComunicadaACliente;
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date  fechaInicioEstimada;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date  fechaFinalizacionEstimada;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date  fechaEntregaComunicadaACliente;
+
     public Long getIdProyecto() {
         return idProyecto;
     }
@@ -50,7 +74,7 @@ public class ProyectoModel {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicioReal() {
+    public Date  getFechaInicioReal() {
         return fechaInicioReal;
     }
 
@@ -58,11 +82,11 @@ public class ProyectoModel {
         this.fechaInicioReal = fechaInicioReal;
     }
 
-    public Date getFechaFinalizacionReal() {
+    public Date  getFechaFinalizacionReal() {
         return fechaFinalizacionReal;
     }
 
-    public void setFechaFinalizacionReal(Date fechaFinalizacionReal) {
+    public void setFechaFinalizacionReal(Date  fechaFinalizacionReal) {
         this.fechaFinalizacionReal = fechaFinalizacionReal;
     }
 
@@ -86,7 +110,7 @@ public class ProyectoModel {
         return fechaEntregaComunicadaACliente;
     }
 
-    public void setFechaEntregaComunicadaACliente(Date fechaEntregaComunicadaACliente) {
+    public void setFechaEntregaComunicadaACliente(Date  fechaEntregaComunicadaACliente) {
         this.fechaEntregaComunicadaACliente = fechaEntregaComunicadaACliente;
     }
 
