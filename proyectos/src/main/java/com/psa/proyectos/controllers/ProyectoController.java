@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "proyectos")
+@CrossOrigin("*")
+
 public class ProyectoController {
 
     @Autowired

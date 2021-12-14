@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "tareas")
+@CrossOrigin("*")
 public class TareaController {
     @Autowired
     TareaService tareaService;

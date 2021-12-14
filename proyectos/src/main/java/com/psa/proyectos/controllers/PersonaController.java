@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "personas")
-
+@CrossOrigin("*")
 public class PersonaController {
     @Autowired
     PersonaService personaService;
