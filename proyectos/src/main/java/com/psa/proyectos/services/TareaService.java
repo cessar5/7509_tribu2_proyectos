@@ -45,6 +45,8 @@ public class TareaService {
         anteriorTarea.setHorasEstimadas(tarea.getHorasEstimadas());
         anteriorTarea.setHorasTrabajadas(tarea.getHorasTrabajadas());
         anteriorTarea.setIdTicket(tarea.getIdTicket());
+        anteriorTarea.setEstado(tarea.getEstado());
+        anteriorTarea.setPrioridad(tarea.getPrioridad());
 
         return tareaRepository.save(anteriorTarea);
     }
@@ -62,6 +64,9 @@ public class TareaService {
             anteriorTarea.setHorasEstimadas(tarea.getHorasEstimadas());
             anteriorTarea.setHorasTrabajadas(tarea.getHorasTrabajadas());
             anteriorTarea.setIdTicket(tarea.getIdTicket());
+            anteriorTarea.setEstado(tarea.getEstado());
+            anteriorTarea.setPrioridad(tarea.getPrioridad());
+
 
             tareaRepository.save(anteriorTarea);
             return true;

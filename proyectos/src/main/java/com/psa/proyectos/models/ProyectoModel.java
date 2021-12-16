@@ -46,6 +46,15 @@ public class ProyectoModel {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate  fechaEntregaComunicadaACliente;
 
+    @Column
+    private Integer horasEstimadas;
+
+    @Column
+    private String prioridad;
+
+    @Column
+    private String estado;
+
     public Long getIdProyecto() {
         return idProyecto;
     }
@@ -118,4 +127,27 @@ public class ProyectoModel {
         this.idLegajo = idLegajo;
     }
 
+    public Integer getHorasEstimadas() {
+        return horasEstimadas;
+    }
+
+    public void setHorasEstimadas(Integer horasEstimadas) {
+        this.horasEstimadas = horasEstimadas;
+    }
+
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }

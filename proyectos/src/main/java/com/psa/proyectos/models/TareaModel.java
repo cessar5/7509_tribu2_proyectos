@@ -40,7 +40,14 @@ public class TareaModel {
     @Column
     private Integer horasTrabajadas;
 
+    @Column
     private Long idTicket;
+
+    @Column
+    private String prioridad;
+
+    @Column
+    private String estado;
 
     public Long getIdTarea() {
         return idTarea;
@@ -120,5 +127,21 @@ public class TareaModel {
 
     public void setIdTicket(Long idTicket) {
         this.idTicket = idTicket;
+    }
+
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

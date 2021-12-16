@@ -46,6 +46,9 @@ public class ProyectoService {
             anteriorProyecto.setFechaInicioEstimada(proyecto.getFechaInicioEstimada());
             anteriorProyecto.setFechaInicioReal(proyecto.getFechaInicioReal());
             anteriorProyecto.setIdLegajo(proyecto.getIdLegajo());
+            anteriorProyecto.setHorasEstimadas(proyecto.getHorasEstimadas());
+            anteriorProyecto.setEstado(proyecto.getEstado());
+            anteriorProyecto.setPrioridad(proyecto.getPrioridad());
 
              return proyectoRepository.save(anteriorProyecto);
     }
@@ -63,6 +66,9 @@ public class ProyectoService {
             anteriorProyecto.setFechaInicioEstimada(proyecto.getFechaInicioEstimada());
             anteriorProyecto.setFechaInicioReal(proyecto.getFechaInicioReal());
             anteriorProyecto.setIdLegajo(proyecto.getIdLegajo());
+            anteriorProyecto.setHorasEstimadas(proyecto.getHorasEstimadas());
+            anteriorProyecto.setEstado(proyecto.getEstado());
+            anteriorProyecto.setPrioridad(proyecto.getPrioridad());
 
             proyectoRepository.save(anteriorProyecto);
             return true;
