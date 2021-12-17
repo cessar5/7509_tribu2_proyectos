@@ -70,18 +70,21 @@ public class TareaController {
     public ResponseEntity<?> actualizarTareaPorId(@RequestBody TareaModel tarea,@PathVariable("id") Long id){
 
         Map<String,Object> response = new HashMap<>();
-
-        boolean ok = this.tareaService.actualizarTareaPorId(tarea,id);
-        if (ok) {
-            response.put("Error","Se actualizo la tarea con id: "+id);
-            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-        }else{
-            response.put("Mensaje", "No se pudo actualizar la tarea con id: "+id);
-           // response.put("Error:", e.getMostSpecificCause().getMessage());
-            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
-
+        try {
+            boolean ok = this.tareaService.actualizarTareaPorId(tarea,id);
+            if (ok) {
+                response.put("Error","Se actualizo la tarea con id: "+id);
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+            }else{
+                response.put("Mensaje", "No se pudo actualizar la tarea. No existe tarea con id: : "+id);
+               // response.put("Error:", e.getMostSpecificCause().getMessage());
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+            }
+        }catch (DataAccessException e) {
+            response.put("Mensaje", "Ocurrio un error al actualizar la tarea con id: " + id);
+            response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @DeleteMapping(path = "/{id}")

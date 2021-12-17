@@ -73,14 +73,20 @@ public class ProyectoController {
     @PutMapping(path ="/{id}")
     public ResponseEntity<?> actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
         Map<String,Object> response = new HashMap<>();
-        boolean ok = this.proyectoService.actualizarProyectoPorId(proyecto,id);
-        if (ok) {
-            response.put( "Mensaje","Se actualizo el proyecto con id: "+id);
-            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-        }else{
-            response.put("Error", "No se pudo actualizar el proyecto con id: "+id);
-            // response.put("Error:", e.getMostSpecificCause().getMessage());
-            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+        try {
+            boolean ok = this.proyectoService.actualizarProyectoPorId(proyecto,id);
+            if (ok) {
+                response.put( "Mensaje","Se actualizo el proyecto con id: "+id);
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+            }else{
+                response.put("Error", "No se pudo actualizar el proyecto. No existe proyecto con id: "+id);
+                // response.put("Error:", e.getMostSpecificCause().getMessage());
+                return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+            }
+        }catch (DataAccessException e) {
+            response.put("Mensaje", "Ocurrio un error al actualizar el proyecto con id: " + id);
+            response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
