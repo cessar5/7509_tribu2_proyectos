@@ -61,11 +61,6 @@ public class TareaController {
 
     }
 
-    @PutMapping(path ="/")
-    public TareaModel actualizarTarea(@RequestBody TareaModel tarea){
-        return this.tareaService.actualizarTarea(tarea);
-    }
-
     @PutMapping(path ="/{id}")
     public ResponseEntity<?> actualizarTareaPorId(@RequestBody TareaModel tarea,@PathVariable("id") Long id){
 
@@ -73,7 +68,7 @@ public class TareaController {
         try {
             boolean ok = this.tareaService.actualizarTareaPorId(tarea,id);
             if (ok) {
-                response.put("Error","Se actualizo la tarea con id: "+id);
+                response.put("Mensaje","Se actualizo la tarea con id: "+id);
                 return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
             }else{
                 response.put("Mensaje", "No se pudo actualizar la tarea. No existe tarea con id: : "+id);

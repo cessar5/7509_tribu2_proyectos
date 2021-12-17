@@ -65,10 +65,6 @@ public class ProyectoController {
 
     }
 
-    @PutMapping(path ="/")
-    public ProyectoModel actualizarProyecto(@RequestBody ProyectoModel proyecto){
-        return this.proyectoService.actualizarProyecto(proyecto);
-    }
 
     @PutMapping(path ="/{id}")
     public ResponseEntity<?> actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
