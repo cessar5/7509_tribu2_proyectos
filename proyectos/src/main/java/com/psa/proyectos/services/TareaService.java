@@ -24,13 +24,9 @@ public class TareaService {
     public Optional<TareaModel> obtenerPorId (Long id) {
         return tareaRepository.findById(id);
     }
-    public boolean eliminarTarea(Long id){
-        try{
+    public void eliminarTarea(Long id){
+            //el controller toma la excepcion si no puede borrar
             tareaRepository.deleteById(id);
-            return true;
-        }catch(Exception err){
-            return false;
-        }
     }
 
     public TareaModel actualizarTarea(TareaModel tarea){

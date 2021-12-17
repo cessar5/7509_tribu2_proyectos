@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-
 @Entity
 @Table(name = "proyectos" )
 
@@ -17,9 +16,8 @@ public class ProyectoModel {
     @Column(unique = true, nullable = false)
     private Long idProyecto;
 
-    @ManyToOne
-    @JoinColumn(name="idLegajo")
-    private PersonaModel idLegajo;
+    @Column
+    private Long idLegajo;
 
     @Column
     private String nombre;
@@ -119,11 +117,11 @@ public class ProyectoModel {
         this.fechaEntregaComunicadaACliente = fechaEntregaComunicadaACliente;
     }
 
-    public PersonaModel getIdLegajo() {
+    public Long getIdLegajo() {
         return idLegajo;
     }
 
-    public void setIdLegajo(PersonaModel idLegajo) {
+    public void setIdLegajo(Long idLegajo) {
         this.idLegajo = idLegajo;
     }
 

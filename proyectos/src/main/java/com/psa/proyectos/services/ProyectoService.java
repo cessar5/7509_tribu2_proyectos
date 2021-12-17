@@ -25,13 +25,9 @@ public class ProyectoService {
         return proyectoRepository.findById(id);
     }
 
-    public boolean eliminarProyecto(Long id){
-        try{
+    public void eliminarProyecto(Long id){
+        //el controller toma la excepcion si no puede borrar
             proyectoRepository.deleteById(id);
-            return true;
-        }catch(Exception err){
-            return false;
-        }
     }
 
     public ProyectoModel actualizarProyecto(ProyectoModel proyecto){

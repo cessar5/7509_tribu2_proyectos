@@ -2,11 +2,17 @@ package com.psa.proyectos.controllers;
 
 
 import com.psa.proyectos.models.ProyectoModel;
+import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.services.ProyectoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -21,18 +27,42 @@ public class ProyectoController {
 
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public ArrayList<ProyectoModel> obtenerProyectos(){
         return proyectoService.obtenerProyectos();
     }
 
     @PostMapping
-    public ProyectoModel guardarProyecto(@RequestBody ProyectoModel proyecto){
-        return this.proyectoService.guardarProyecto(proyecto);
+    public ResponseEntity<?> guardarProyecto(@RequestBody ProyectoModel proyecto){
+        Map<String,Object> response = new HashMap<>();
+        try {
+            //proyectoService.guardarProyecto(proyecto);
+            //en el put esta devolviendo el json que retorna el servicio
+            response.put("Mensaje",proyectoService.guardarProyecto(proyecto));
+
+        }catch (DataAccessException e) {
+            response.put("Mensaje", "No se pudo guardar el proyecto");
+            response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
     }
 
     @GetMapping (path = "/{id}")
-    public Optional<ProyectoModel> obtenerProyectosPorID(@PathVariable("id") Long id){
-        return this.proyectoService.obtenerPorId(id);
+    public ResponseEntity<?> obtenerProyectosPorID(@PathVariable("id") Long id){
+        Map<String,Object> response = new HashMap<>();
+        Optional<ProyectoModel> proyectoServices;
+        proyectoServices = proyectoService.obtenerPorId(id);
+
+        if (proyectoServices.isPresent()){
+            response.put("Mensaje",proyectoServices);
+        }else{
+            response.put("Error", "No se pudo encontrar el proyecto con id: "+id);
+            // response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+
     }
 
     @PutMapping(path ="/")
@@ -41,25 +71,34 @@ public class ProyectoController {
     }
 
     @PutMapping(path ="/{id}")
-    public String actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
+    public ResponseEntity<?> actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
+        Map<String,Object> response = new HashMap<>();
         boolean ok = this.proyectoService.actualizarProyectoPorId(proyecto,id);
         if (ok) {
-            return "Se actualizo el proyecto con id: "+id;
+            response.put( "Mensaje","Se actualizo el proyecto con id: "+id);
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
         }else{
-            return "No se pudo actualizo el proyecto con id: "+id;
+            response.put("Error", "No se pudo actualizar el proyecto con id: "+id);
+            // response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping(path = "/{id}")
-    public String eliminarPorID(@PathVariable("id") Long id)
+    public ResponseEntity<?> eliminarPorID(@PathVariable("id") Long id)
     {
-        boolean ok = this.proyectoService.eliminarProyecto(id);
-        if (ok) {
-            return "Se elimino el proyecto con id: "+id;
-        }else{
-            return "No se pudo eliminar el proyecto con id: "+id;
+        Map<String,Object> response = new HashMap<>();
+        try {
+            proyectoService.eliminarProyecto(id);
+            response.put("Mensaje","Se elimino el proyecto con id: "+id);
+
+        }catch (DataAccessException e) {
+            response.put("Mensaje", "No se pudo eliminar el proyecto con id: " + id);
+            response.put("Error:", e.getMostSpecificCause().getMessage());
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+
     }
 
     @GetMapping("/query")

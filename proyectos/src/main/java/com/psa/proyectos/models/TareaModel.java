@@ -19,9 +19,8 @@ public class TareaModel {
     @JoinColumn(name="idProyecto", nullable = false)
     private ProyectoModel idProyecto;
 
-    @ManyToOne
-    @JoinColumn(name="idLegajo")
-    private PersonaModel idLegajo;
+    @Column
+    private Long idLegajo;
 
     @Column
     private String nombre;
@@ -113,11 +112,11 @@ public class TareaModel {
         this.idProyecto = idProyecto;
     }
 
-    public PersonaModel getIdLegajo() {
+    public Long getIdLegajo() {
         return idLegajo;
     }
 
-    public void setIdLegajo(PersonaModel idLegajo) {
+    public void setIdLegajo(Long idLegajo) {
         this.idLegajo = idLegajo;
     }
 
