@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Entity
+@Entity(name = "tareas" )
 @Table(name = "tareas" )
 public class TareaModel {
 

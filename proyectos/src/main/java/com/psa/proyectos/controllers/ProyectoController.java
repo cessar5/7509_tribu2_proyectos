@@ -35,8 +35,11 @@ public class ProyectoController {
     @PostMapping
     public ResponseEntity<?> guardarProyecto(@RequestBody ProyectoModel proyecto){
         Map<String,Object> response = new HashMap<>();
+        System.out.println("hola 1 "+ proyecto.getDescripcion());
+
         try {
-            //proyectoService.guardarProyecto(proyecto);
+            proyectoService.guardarProyecto(proyecto);
+            System.out.println("hola 2"+ proyecto.getDescripcion());
             //en el put esta devolviendo el json que retorna el servicio
             response.put("Mensaje",proyectoService.guardarProyecto(proyecto));
 
@@ -62,9 +65,7 @@ public class ProyectoController {
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-
     }
-
 
     @PutMapping(path ="/{id}")
     public ResponseEntity<?> actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
@@ -100,12 +101,18 @@ public class ProyectoController {
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-
     }
 
     @GetMapping("/query")
-    public ArrayList<ProyectoModel> obtenerProyectoPorNombre(@RequestParam("nombre") String nombre){
-        return this.proyectoService.obtenerPorNombre(nombre);
+    public ArrayList<ProyectoModel> obtenerProyectoPorNombre(@RequestParam("nombre") String nombre
+                                                            ,@RequestParam("descripcion") String descripcion){
+        return this.proyectoService.obtenerPorNombreODescripcion(nombre,descripcion);
+    }
+
+    //@GetMapping(path = "/{id_proyecto}/tareas")
+    public ArrayList<TareaModel> obtenerPorParametros(@PathVariable("id_proyecto") Long id_proyecto)
+    {
+        return this.proyectoService.obtenerPorIdProyecto(id_proyecto);
     }
 
 }

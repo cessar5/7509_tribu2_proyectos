@@ -1,9 +1,11 @@
 package com.psa.proyectos.services;
 
 import com.psa.proyectos.models.ProyectoModel;
+import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.repositories.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
@@ -74,10 +76,12 @@ public class ProyectoService {
     }
 
 
-    public ArrayList<ProyectoModel> obtenerPorNombre(String nombre){
-        return proyectoRepository.findByNombre(nombre);
+    public ArrayList<ProyectoModel> obtenerPorNombreODescripcion(String nombre,String descripcion){
+        return proyectoRepository.findByNombreOrDescripcion(nombre,descripcion);
     }
-    public ArrayList<ProyectoModel> obtenerPorDescripcion(String descripcion){
-        return proyectoRepository.findByNombre(descripcion);
-    }  
+
+
+    public ArrayList<TareaModel> obtenerPorIdProyecto(Long idProyecto){
+        return proyectoRepository.findByIdProyecto(idProyecto);
+    }
 }

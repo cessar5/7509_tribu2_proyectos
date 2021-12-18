@@ -2,8 +2,13 @@ package com.psa.proyectos.services;
 
 import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.repositories.TareaRepository;
+
+import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -72,11 +77,21 @@ public class TareaService {
 
     }
 
-
-    public ArrayList<TareaModel> obtenerPorNombre(String nombre){
-        return tareaRepository.findByNombre(nombre);
+    @Transactional(readOnly = true)
+    public ArrayList<TareaModel> obtenerPorNombreODescripcion(String nombre, String descripcion){
+        return tareaRepository.findByNombreOrDescripcion(nombre,descripcion);
     }
+    @Transactional(readOnly = true)
     public ArrayList<TareaModel> obtenerPorDescripcion(String descripcion){
-        return tareaRepository.findByNombre(descripcion);
+        return tareaRepository.findByDescripcion(descripcion);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TareaModel> obtenerPorIdProyecto(Long idProyecto){
+        return tareaRepository.findByIdProyecto(idProyecto);
+    }
+    @Transactional(readOnly = true)
+    public ArrayList<TareaModel> obtenerTareasPorIds(Collection<Long> ids){
+        return tareaRepository.findAllByIdTareaIn(ids);
     }
 }

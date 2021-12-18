@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-@Entity
+@Entity(name = "proyectos" )
 @Table(name = "proyectos" )
 
 public class ProyectoModel {
@@ -15,6 +15,9 @@ public class ProyectoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long idProyecto;
+
+    //@OneToMany(mappedBy = "idTarea")
+    //private List<TareaModel> idTareas = new ArrayList<TareaModel>();
 
     @Column
     private Long idLegajo;
