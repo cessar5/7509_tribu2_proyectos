@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity(name = "proyectos" )
@@ -20,7 +19,7 @@ public class ProyectoModel {
     //private List<TareaModel> idTareas = new ArrayList<TareaModel>();
 
     @Column
-    private Long idLegajo;
+    private Long idLegajoLiderProyecto;
 
     @Column
     private String nombre;
@@ -120,12 +119,12 @@ public class ProyectoModel {
         this.fechaEntregaComunicadaACliente = fechaEntregaComunicadaACliente;
     }
 
-    public Long getIdLegajo() {
-        return idLegajo;
+    public Long getIdLegajoLiderProyecto() {
+        return idLegajoLiderProyecto;
     }
 
-    public void setIdLegajo(Long idLegajo) {
-        this.idLegajo = idLegajo;
+    public void setIdLegajoLiderProyecto(Long idLegajoLiderProyecto) {
+        this.idLegajoLiderProyecto = idLegajoLiderProyecto;
     }
 
     public Integer getHorasEstimadas() {

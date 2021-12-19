@@ -4,7 +4,7 @@ import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.repositories.TareaRepository;
 
 import java.util.Collection;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +46,7 @@ public class TareaService {
         anteriorTarea.setNombre(tarea.getNombre());
         anteriorTarea.setFechaFinalizacionReal(tarea.getFechaFinalizacionReal());
         anteriorTarea.setFechaInicioReal(tarea.getFechaInicioReal());
-        anteriorTarea.setIdLegajo(tarea.getIdLegajo());
+        anteriorTarea.setIdLegajoEmpleado(tarea.getIdLegajoEmpleado());
         anteriorTarea.setHorasEstimadas(tarea.getHorasEstimadas());
         anteriorTarea.setHorasTrabajadas(tarea.getHorasTrabajadas());
         anteriorTarea.setIdTicket(tarea.getIdTicket());
@@ -68,7 +68,7 @@ public class TareaService {
             anteriorTarea.setNombre(tarea.getNombre());
             anteriorTarea.setFechaFinalizacionReal(tarea.getFechaFinalizacionReal());
             anteriorTarea.setFechaInicioReal(tarea.getFechaInicioReal());
-            anteriorTarea.setIdLegajo(tarea.getIdLegajo());
+            anteriorTarea.setIdLegajoEmpleado(tarea.getIdLegajoEmpleado());
             anteriorTarea.setHorasEstimadas(tarea.getHorasEstimadas());
             anteriorTarea.setHorasTrabajadas(tarea.getHorasTrabajadas());
             anteriorTarea.setIdTicket(tarea.getIdTicket());

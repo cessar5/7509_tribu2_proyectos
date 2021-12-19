@@ -6,6 +6,7 @@ import com.psa.proyectos.models.TareaModel;
 import com.psa.proyectos.services.ProyectoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProyectoController {
 
     @Operation(summary = "Get Projects",
             description = "Consulta para recuperar proyectos", responses = {
-            @ApiResponse(content = @Content(schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200")})
+            @ApiResponse(content = @Content(mediaType = "application/json",schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200")})
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ArrayList<ProyectoModel> obtenerProyectos(){
@@ -39,8 +40,10 @@ public class ProyectoController {
 
     @Operation(summary = "Post Projects",
             description = "Grabar Proyecto", responses = {
-            @ApiResponse(content = @Content(schema = @Schema(implementation = ProyectoModel.class)), responseCode = "201"),
-            @ApiResponse(responseCode = "404", description = "No se pudo grabar el proyecto")
+            @ApiResponse(content = @Content(mediaType = "application/json",schema = @Schema(implementation = ProyectoModel.class)), responseCode = "201"),
+            @ApiResponse(content = @Content(mediaType = "application/json",
+                    examples = @ExampleObject(name="example",value = "{message: message description, error: error description, status: status defined, timestamp: date}"))
+                    , responseCode = "404", description = "No se pudo grabar el proyecto")
     })
     @PostMapping
     public ResponseEntity<?> guardarProyecto(@RequestBody ProyectoModel proyecto) throws URISyntaxException{
@@ -52,27 +55,34 @@ public class ProyectoController {
            return ResponseEntity.created(new URI("/proyectos/" + proyectoServices.getIdProyecto()))
                     .body(proyectoServices);
         }catch (DataAccessException e) {
-            response.put("Mensaje", "No se pudo guardar el proyecto");
-            response.put("Error:", e.getMostSpecificCause().getMessage());
+            response.put("message", "No se pudo guardar el proyecto");
+            response.put("error", e.getMostSpecificCause().getMessage());
+            response.put("status",HttpStatus.UNPROCESSABLE_ENTITY.value());
+            response.put("timestamp", new Date());
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
     }
     //@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get Projects by Id",
             description = "Consulta para recuperar proyectos por Id", responses = {
-            @ApiResponse(content = @Content(schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
-            @ApiResponse(responseCode = "404", description = "No se pudo recuperar el proyecto")})
+            @ApiResponse(content = @Content(mediaType = "application/json",schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
+            @ApiResponse(content = @Content(mediaType = "application/json",
+                    examples = @ExampleObject(name="example",value = "{message: message description, error: error description, status: status defined, timestamp: date}"))
+                    ,responseCode = "404", description = "No se pudo recuperar el proyecto")})
     @GetMapping (path = "/{id}")
     public ResponseEntity <?> obtenerProyectosPorID(@PathVariable Long id){
         Map<String,Object> response = new HashMap<>();
-        Optional<ProyectoModel> proyectoServices = proyectoService.obtenerPorId(id);;
+        Optional<ProyectoModel> proyectoServices = proyectoService.obtenerPorId(id);
 
         if (!proyectoServices.isPresent()){
-            response.put("Mensaje",proyectoServices);
+            response.put("message",proyectoServices);
         }else{
-            response.put("Error", "No se pudo encontrar el proyecto con id: "+id);
-            response.put("Mensaje", "Ocurrio un error al actualizar el proyecto con id: " + id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            response.put("message", "No se pudo encontrar el proyecto con id: "+id);
+            response.put("error", "Ocurrio un error al actualizar el proyecto con id: " + id);
+            response.put("status",HttpStatus.NOT_FOUND.value());
+            response.put("timestamp", new Date());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
         return ResponseEntity.ok(proyectoServices);
 
@@ -80,8 +90,10 @@ public class ProyectoController {
 
     @Operation(summary = "Put Projects",
             description = "Actualizar Proyecto", responses = {
-            @ApiResponse(content = @Content(schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
-            @ApiResponse(responseCode = "404", description = "No se encontro el proyecto")
+            @ApiResponse(content = @Content(mediaType = "application/json",schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
+            @ApiResponse(content = @Content(mediaType = "application/json",
+                    examples = @ExampleObject(name="example",value = "{message: message description, error: error description, status: status defined, timestamp: date}"))
+                    ,description = "No se encontro el proyecto")
     })
     @PutMapping(path ="/{id}")
     public ResponseEntity<?> actualizarProyecto(@RequestBody ProyectoModel proyecto, @PathVariable("id") Long id){
@@ -92,20 +104,27 @@ public class ProyectoController {
                 response.put( "Mensaje","Se actualizo el proyecto con id: "+id);
                 return ResponseEntity.ok().build();
             }else{
-                response.put("Error", "No se pudo actualizar el proyecto. No existe proyecto con id: "+id);
+                response.put("error", "No se pudo actualizar el proyecto. No existe proyecto con id: "+id);
                 // response.put("Error:", e.getMostSpecificCause().getMessage());
+                response.put("status",HttpStatus.NOT_FOUND.value());
+                response.put("timestamp", new Date());
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
             }
         }catch (DataAccessException e) {
-            response.put("Mensaje", "Ocurrio un error al actualizar el proyecto con id: " + id);
-            response.put("Error:", e.getMostSpecificCause().getMessage());
+            response.put("message", "Ocurrio un error al actualizar el proyecto con id: " + id);
+            response.put("error:", e.getMostSpecificCause().getMessage());
+            response.put("status",HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.put("timestamp", new Date());
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
     @Operation(summary = "Delete Projects",
             description = "Eliminar Proyecto", responses = {
-            @ApiResponse(content = @Content(schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
-            @ApiResponse(responseCode = "404", description = "No se encontro el proyecto")
+            @ApiResponse(content = @Content(mediaType = "application/json",schema = @Schema(implementation = ProyectoModel.class)), responseCode = "200"),
+            @ApiResponse(content = @Content(mediaType = "application/json",
+                    examples = @ExampleObject(name="example",value = "{message: message description, error: error description, status: status defined, timestamp: date}"))
+                    ,responseCode = "404", description = "No se encontro el proyecto")
     })
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> eliminarPorID(@PathVariable("id") Long id)
@@ -113,11 +132,13 @@ public class ProyectoController {
         Map<String,Object> response = new HashMap<>();
         try {
             proyectoService.eliminarProyecto(id);
-            response.put("Mensaje","Se elimino el proyecto con id: "+id);
+            response.put("message","Se elimino el proyecto con id: "+id);
 
         }catch (DataAccessException e) {
-            response.put("Mensaje", "No se pudo eliminar el proyecto con id: " + id);
-            response.put("Error:", e.getMostSpecificCause().getMessage());
+            response.put("message", "No se pudo eliminar el proyecto con id: " + id);
+            response.put("error:", e.getMostSpecificCause().getMessage());
+            response.put("status",HttpStatus.NOT_FOUND.value());
+            response.put("timestamp", new Date());
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 
         }
