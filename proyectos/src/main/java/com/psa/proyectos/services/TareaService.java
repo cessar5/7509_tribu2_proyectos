@@ -18,6 +18,10 @@ public class TareaService {
     @Autowired
     TareaRepository tareaRepository;
 
+    private boolean existsById(Long id) {
+        return tareaRepository.existsById(id);
+    }
+
     public ArrayList<TareaModel> obtenerTareas(){
         return (ArrayList<TareaModel>) tareaRepository.findAll();
     }
@@ -52,11 +56,14 @@ public class TareaService {
         return tareaRepository.save(anteriorTarea);
     }
 
-    public boolean actualizarTareaPorId(TareaModel tarea, Long idTarea){
-        TareaModel anteriorTarea = tareaRepository.findById(idTarea).orElse(null);
-        //assert anteriorTarea != null;
-        //todo: el tarea no puede ser nulo
+        public boolean actualizarTareaPorId(TareaModel tarea, Long idTarea){
+
         try {
+            TareaModel anteriorTarea = tareaRepository.findById(idTarea).orElse(null);
+
+            if (anteriorTarea == null ){
+                return false;
+            }
             anteriorTarea.setDescripcion(tarea.getDescripcion());
             anteriorTarea.setNombre(tarea.getNombre());
             anteriorTarea.setFechaFinalizacionReal(tarea.getFechaFinalizacionReal());
@@ -68,7 +75,7 @@ public class TareaService {
             anteriorTarea.setEstado(tarea.getEstado());
             anteriorTarea.setPrioridad(tarea.getPrioridad());
 
-
+            anteriorTarea.setIdProyecto(tarea.getIdProyecto());
             tareaRepository.save(anteriorTarea);
             return true;
         }catch(Exception err){
@@ -85,10 +92,9 @@ public class TareaService {
     public ArrayList<TareaModel> obtenerPorDescripcion(String descripcion){
         return tareaRepository.findByDescripcion(descripcion);
     }
-
     @Transactional(readOnly = true)
-    public List<TareaModel> obtenerPorIdProyecto(Long idProyecto){
-        return tareaRepository.findByIdProyecto(idProyecto);
+    public ArrayList<TareaModel> obtenerPorIdProyecto(Long idProyecto){
+        return tareaRepository.findByIdProyecto_IdProyecto(idProyecto);
     }
     @Transactional(readOnly = true)
     public ArrayList<TareaModel> obtenerTareasPorIds(Collection<Long> ids){

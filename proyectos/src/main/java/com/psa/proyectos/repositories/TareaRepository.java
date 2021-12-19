@@ -25,8 +25,9 @@ public interface TareaRepository extends JpaRepository<TareaModel, Long> {
     //@Query("select c from tareas c where c.idProyecto = :id_proyecto")
     //@Query("SELECT c FROM tareas c, proyectos d where c.idProyecto = d.idProyecto and c.idProyecto = :id_proyecto")
 
-    @Query("select t from tareas t where t.idProyecto = :idProyecto")
-    public abstract List<TareaModel> findByIdProyecto(@Param("idProyecto") Long id_proyecto);
+    //@Query("select t from tareas t, proyectos p where t.idProyecto = p.idProyecto and t.idProyecto = :idProyecto")
+    //public abstract ArrayList<TareaModel> findByIdProyecto(@Param("idProyecto") String id_proyecto);
+    public abstract ArrayList<TareaModel> findByIdProyecto_IdProyecto(Long id_proyecto);
 
     public abstract ArrayList<TareaModel> findAllByIdTareaIn(Collection<Long> id);
 }
