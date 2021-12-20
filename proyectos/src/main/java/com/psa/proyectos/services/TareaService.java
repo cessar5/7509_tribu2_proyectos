@@ -75,7 +75,6 @@ public class TareaService {
             anteriorTarea.setEstado(tarea.getEstado());
             anteriorTarea.setPrioridad(tarea.getPrioridad());
 
-            anteriorTarea.setIdProyecto(tarea.getIdProyecto());
             tareaRepository.save(anteriorTarea);
             return true;
         }catch(Exception err){

@@ -74,17 +74,18 @@ public class ProyectoController {
         Map<String,Object> response = new HashMap<>();
         Optional<ProyectoModel> proyectoServices = proyectoService.obtenerPorId(id);
 
-        if (!proyectoServices.isPresent()){
+        if (proyectoServices.isPresent()){
             response.put("message",proyectoServices);
+            return ResponseEntity.ok(proyectoServices);
         }else{
-            response.put("message", "No se pudo encontrar el proyecto con id: "+id);
-            response.put("error", "Ocurrio un error al actualizar el proyecto con id: " + id);
+            response.put("message", "No se pudo recuperar el proyecto con id: "+id);
+            response.put("error", "Ocurrio un error al consultar el proyecto con id: " + id);
             response.put("status",HttpStatus.NOT_FOUND.value());
             response.put("timestamp", new Date());
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-        return ResponseEntity.ok(proyectoServices);
+
 
     }
 
@@ -156,5 +157,4 @@ public class ProyectoController {
     {
         return this.proyectoService.obtenerPorIdProyecto(id_proyecto);
     }
-
 }
